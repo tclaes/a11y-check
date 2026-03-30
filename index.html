@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a11y-check.eu | Free Web Accessibility Checker</title>
+    <meta name="description" content="Free web accessibility checker powered by axe-core. Audit your website for WCAG 2.1 AA compliance.">
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4950654000854684" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1>a11y-check.eu</h1>
+        <p>Free web accessibility checker powered by <a href="https://github.com/dequelabs/axe-core">axe-core</a>.</p>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h2>Check your website's accessibility</h2>
+            <p>Enter a URL to start a WCAG 2.1 AA audit.</p>
+            <form id="check-form">
+                <input type="url" placeholder="https://example.com" required>
+                <button type="submit" disabled>Audit (Coming Soon)</button>
+            </form>
+        </section>
+
+        <section id="status">
+            <h3>🚧 Status</h3>
+            <p>Homepage is live with Google AdSense. The axe-core checker app is in development.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 a11y-check.eu | MIT License</p>
+    </footer>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="a11y-check.eu — Free web accessibility checker. Instantly audit your website for WCAG compliance issues using axe-core." />
+  <title>a11y-check — Web Accessibility Checker</title>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4950654000854684"
+       crossorigin="anonymous"></script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-primary: #2563eb;
+      --color-primary-dark: #1d4ed8;
+      --color-bg: #f8fafc;
+      --color-surface: #ffffff;
+      --color-text: #1e293b;
+      --color-muted: #64748b;
+      --color-border: #e2e8f0;
+      --color-accent: #0ea5e9;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--color-primary);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 0 0 8px 0;
+      text-decoration: none;
+      font-weight: 600;
+      z-index: 100;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Header ── */
+    header {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 2rem;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--color-text);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .logo-badge {
+      background: var(--color-primary);
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    nav a {
+      color: var(--color-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 4px 12px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    nav a:hover, nav a:focus {
+      color: var(--color-primary);
+      background: #eff6ff;
+      outline: none;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+      color: #fff;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span {
+      color: #bae6fd;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.9;
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+    }
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+    .btn-primary { background: #fff; color: var(--color-primary); }
+    .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.6); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── Ad banner (top) ── */
+    .ad-banner {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.75rem 2rem;
+      text-align: center;
+    }
+
+    /* ── Main content ── */
+    main {
+      flex: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    /* ── Features ── */
+    .features { display: flex; flex-direction: column; gap: 2rem; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: var(--color-muted);
+    }
+
+    /* ── Coming soon checker ── */
+    .checker-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+    .checker-card h2 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .checker-card p { color: var(--color-muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .input-group input {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--color-text);
+      background: var(--color-bg);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .input-group input:focus { border-color: var(--color-primary); }
+    .input-group button {
+      padding: 0.65rem 1.25rem;
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: not-allowed;
+      opacity: 0.7;
+      font-size: 0.95rem;
+    }
+    .coming-soon-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── Sidebar ads ── */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .ad-box {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 250px;
+      text-align: center;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      color: var(--color-muted);
+      font-size: 0.875rem;
+    }
+    footer a { color: var(--color-primary); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+      }
+      .sidebar { order: -1; }
+      .ad-box { min-height: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="a11y-check home">
+        <span class="logo-badge">a11y</span>
+        check.eu
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#">About</a>
+        <a href="#">Docs</a>
+        <a href="#">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <h1 id="hero-heading">
+      Web Accessibility,<br />
+      <span>Made Simple</span>
+    </h1>
+    <p>
+      Instantly audit your website for WCAG 2.1 AA compliance issues.
+      Powered by axe-core — the industry-standard accessibility engine.
+    </p>
+    <div class="cta-group">
+      <a href="#checker" class="btn btn-primary">Try the Checker</a>
+      <a href="https://github.com/dequelabs/axe-core" class="btn btn-outline" target="_blank" rel="noopener">
+        Learn about axe-core ↗
+      </a>
+    </div>
+  </section>
+
+  <!-- Top leaderboard ad -->
+  <div class="ad-banner" aria-label="Advertisement">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4950654000854684"
+         data-ad-slot="auto"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <!-- Main -->
+  <main id="main-content">
+
+    <div class="features">
+
+      <!-- Checker (coming soon) -->
+      <div class="checker-card" id="checker">
+        <span class="coming-soon-badge">Coming Soon</span>
+        <h2>Check Your Website</h2>
+        <p>Enter any URL and get a full WCAG 2.1 AA accessibility report in seconds.</p>
+        <div class="input-group">
+          <label for="url-input" class="sr-only">Website URL</label>
+          <input
+            type="url"
+            id="url-input"
+            placeholder="https://example.com"
+            aria-label="Website URL to check"
+            disabled
+          />
+          <button disabled aria-disabled="true">Analyse</button>
+        </div>
+      </div>
+
+      <!-- Feature cards -->
+      <div class="features-grid">
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">⚡</div>
+          <h3>Instant Results</h3>
+          <p>Get a full accessibility report in under 10 seconds, no sign-up required.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">🔍</div>
+          <h3>axe-core Powered</h3>
+          <p>Built on Deque's axe-core engine — trusted by Microsoft, Google, and more.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">📋</div>
+          <h3>WCAG 2.1 AA</h3>
+          <p>Checks against the international standard for web content accessibility.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">🆓</div>
+          <h3>Free to Use</h3>
+          <p>No account needed. Run as many checks as you like, completely free.</p>
+        </article>
+      </div>
+
+    </div>
+
+    <!-- Sidebar with ads -->
+    <aside class="sidebar" aria-label="Advertisements">
+      <div class="ad-box">
+        <ins class="adsbygoogle"
+             style="display:block;width:300px;height:250px"
+             data-ad-client="ca-pub-4950654000854684"
+             data-ad-slot="auto"
+             data-ad-format="rectangle"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+      <div class="ad-box">
+        <ins class="adsbygoogle"
+             style="display:block;width:300px;height:250px"
+             data-ad-client="ca-pub-4950654000854684"
+             data-ad-slot="auto"
+             data-ad-format="rectangle"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      &copy; 2026 <strong>a11y-check.eu</strong> &mdash;
+      Built with ♥ for a more accessible web &mdash;
+      <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener">WCAG Guidelines</a> &middot;
+      <a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener">axe-core</a>
+    </p>
+  </footer>
+
+  <!-- Visually hidden utility class -->
+  <style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
+
+</body>
+</html>
