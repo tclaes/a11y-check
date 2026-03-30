@@ -1,0 +1,14 @@
+{
+  "name": "a11y-check",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web accessibility checker powered by axe-core",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@sparticuz/chromium": "131.0.1",
+    "axe-core": "4.10.2",
+    "puppeteer-core": "23.10.4"
+  }
+}
