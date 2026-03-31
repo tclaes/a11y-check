@@ -4,7 +4,7 @@
   // After deploying Firebase functions (`firebase deploy --only functions`),
   // paste the generated URL here, e.g.:
   //   https://generatepdf-abc123-uc.a.run.app
-  const PDF_FUNCTION_URL = '';
+  const PDF_FUNCTION_URL = 'https://generatepdf-7a6kses7eq-uc.a.run.app';
 
   const form    = document.getElementById('checker-form');
   const input   = document.getElementById('url-input');
