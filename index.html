@@ -363,38 +363,10 @@
       margin-right: 4px;
     }
 
-    /* ── PDF download button ── */
-    .pdf-download-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-left: auto;
-      padding: 0.5rem 1rem;
-      background: #0369a1;
-      color: #fff;
-      border: none;
-      border-radius: 7px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.15s;
-      white-space: nowrap;
-    }
-    .pdf-download-btn:hover:not(:disabled) {
-      background: #075985;
-      transform: translateY(-1px);
-    }
-    .pdf-download-btn:disabled {
-      opacity: 0.65;
-      cursor: not-allowed;
-      transform: none;
-    }
-
     /* ── Responsive ── */
     @media (max-width: 768px) {
       main { padding: 2rem 1rem; }
       .summary-url { width: 100%; margin-left: 0; }
-      .pdf-download-btn { width: 100%; justify-content: center; margin-left: 0; }
     }
 
     .sr-only {
