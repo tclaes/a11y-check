@@ -4,3 +4,5 @@ node_modules/
 *.log
 .cache/
 .netlify/
+.firebase/
+firebase-debug.log
