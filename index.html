@@ -250,9 +250,123 @@
     footer a { color: var(--color-primary); text-decoration: underline; }
     footer a:hover { text-decoration: none; }
 
+    /* ── Results panel ── */
+    #results { margin-top: 2rem; }
+    #results:empty { display: none; }
+
+    .results-summary {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding: 1.25rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .summary-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      min-width: 80px;
+    }
+    .stat-violations { background: #fef2f2; color: #991b1b; }
+    .stat-incomplete { background: #fff7ed; color: #9a3412; }
+    .stat-passes     { background: #f0fdf4; color: #166534; }
+    .stat-number { font-size: 1.75rem; font-weight: 800; line-height: 1; }
+    .stat-label  { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+    .summary-url { margin-left: auto; font-size: 0.85rem; color: var(--color-muted); }
+    .summary-url a { color: var(--color-primary); }
+
+    .results-section { margin-bottom: 2rem; }
+    .section-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--color-text);
+    }
+    .section-description { font-size: 0.875rem; color: var(--color-muted); margin-bottom: 0.75rem; }
+    .no-issues { font-size: 0.95rem; color: #166534; background: #f0fdf4; padding: 0.75rem 1rem; border-radius: 8px; }
+
+    /* Impact colours */
+    .rule-item { border-radius: var(--radius); margin-bottom: 0.6rem; overflow: hidden; }
+    .rule-item.impact-critical { border: 1px solid #fca5a5; }
+    .rule-item.impact-serious  { border: 1px solid #fdba74; }
+    .rule-item.impact-moderate { border: 1px solid #fde047; }
+    .rule-item.impact-minor    { border: 1px solid #86efac; }
+
+    .rule-item summary {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.9rem;
+    }
+    .rule-item summary::-webkit-details-marker { display: none; }
+    .rule-item.impact-critical summary { background: #fef2f2; }
+    .rule-item.impact-serious  summary { background: #fff7ed; }
+    .rule-item.impact-moderate summary { background: #fefce8; }
+    .rule-item.impact-minor    summary { background: #f0fdf4; }
+
+    .impact-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 1px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .impact-critical .impact-badge { background: #fee2e2; color: #991b1b; }
+    .impact-serious  .impact-badge { background: #ffedd5; color: #9a3412; }
+    .impact-moderate .impact-badge { background: #fef9c3; color: #854d0e; }
+    .impact-minor    .impact-badge { background: #dcfce7; color: #166534; }
+
+    .rule-description { flex: 1; color: var(--color-text); }
+    .rule-count { font-size: 0.8rem; color: var(--color-muted); white-space: nowrap; }
+
+    .rule-body { padding: 0.75rem 1rem 1rem; border-top: 1px solid var(--color-border); }
+    .node-item { background: var(--color-bg); border-radius: 6px; padding: 0.75rem; margin-bottom: 0.6rem; }
+    .node-html { display: block; font-family: monospace; font-size: 0.8rem; color: var(--color-text); word-break: break-all; white-space: pre-wrap; }
+    .node-summary { font-size: 0.82rem; color: var(--color-muted); margin-top: 0.4rem; }
+    .rule-help-link { display: inline-block; margin-top: 0.5rem; font-size: 0.85rem; color: var(--color-primary); }
+
+    .result-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .error-card { border-color: #fca5a5; background: #fef2f2; display: flex; align-items: center; gap: 0.75rem; }
+    .error-card p { color: #991b1b; font-size: 0.95rem; }
+
+    /* Loading state */
+    .is-loading button { cursor: wait; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       main { padding: 2rem 1rem; }
+      .summary-url { width: 100%; margin-left: 0; }
     }
 
     .sr-only {
@@ -281,7 +395,7 @@
       <nav aria-label="Main navigation">
         <a href="#">About</a>
         <a href="#">Docs</a>
-        <a href="#">GitHub</a>
+        <a href="https://github.com/tclaes/a11y-check" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
   </header>
@@ -306,20 +420,23 @@
   <main id="main-content">
 
     <div class="checker-card" id="checker">
-      <span class="coming-soon-badge">Coming Soon</span>
       <h2>Check Your Website</h2>
       <p>Enter any URL and get a full WCAG 2.1 AA accessibility report in seconds.</p>
-      <div class="input-group">
-        <label for="url-input" class="sr-only">Website URL</label>
-        <input
-          type="url"
-          id="url-input"
-          placeholder="https://example.com"
-          aria-label="Website URL to check"
-          disabled
-        />
-        <button disabled aria-disabled="true">Analyse</button>
-      </div>
+      <form id="checker-form">
+        <div class="input-group">
+          <label for="url-input" class="sr-only">Website URL</label>
+          <input
+            type="url"
+            id="url-input"
+            placeholder="https://example.com"
+            aria-label="Website URL to check"
+            autocomplete="url"
+            required
+          />
+          <button type="submit">Analyse</button>
+        </div>
+      </form>
+      <div id="results" aria-live="polite" aria-atomic="false"></div>
     </div>
 
     <div class="features-grid">
@@ -356,5 +473,6 @@
     </p>
   </footer>
 
+  <script src="checker.js" defer></script>
 </body>
 </html>
