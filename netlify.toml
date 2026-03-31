@@ -7,5 +7,5 @@
 
 [functions."analyse"]
   node_bundler = "esbuild"
-  external_node_modules = ["@sparticuz/chromium"]
+  external_node_modules = ["@sparticuz/chromium", "axe-core"]
   timeout = 26
