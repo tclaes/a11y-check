@@ -1,14 +1,11 @@
 (() => {
   const FUNCTION_URL = '/.netlify/functions/analyse';
 
-  // After deploying Firebase functions (`firebase deploy --only functions`),
-  // paste the generated URL here, e.g.:
-  //   https://generatepdf-abc123-uc.a.run.app
   const PDF_FUNCTION_URL = 'https://generatepdf-7a6kses7eq-uc.a.run.app';
 
-  const form    = document.getElementById('checker-form');
-  const input   = document.getElementById('url-input');
-  const button  = document.querySelector('#checker-form button');
+  const form = document.getElementById('checker-form');
+  const input = document.getElementById('url-input');
+  const button = document.querySelector('#checker-form button');
   const results = document.getElementById('results');
 
   // Enable the form
@@ -28,10 +25,10 @@
     clearResults();
 
     try {
-      const res  = await fetch(FUNCTION_URL, {
-        method:  'POST',
+      const res = await fetch(FUNCTION_URL, {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ url: targetUrl }),
+        body: JSON.stringify({ url: targetUrl }),
       });
 
       const data = await res.json();
@@ -73,31 +70,14 @@
   }
 
   function renderResults(data) {
-    const vCount      = data.violations.length;
-    const iCount      = data.incomplete.length;
+    const vCount = data.violations.length;
+    const iCount = data.incomplete.length;
     const impactOrder = ['critical', 'serious', 'moderate', 'minor'];
 
     // Sort violations by impact severity
     const sorted = [...data.violations].sort(
-      (a, b) => impactOrder.indexOf(a.impact) - impactOrder.indexOf(b.impact),
+      (a, b) => impactOrder.indexOf(a.impact) - impactOrder.indexOf(b.impact)
     );
-
-    const pdfBtn = PDF_FUNCTION_URL
-      ? `<button
-           id="pdf-download-btn"
-           class="pdf-download-btn"
-           type="button"
-           aria-label="Download PDF report for ${escHtml(data.url)}"
-         >
-           <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-             <polyline points="7 10 12 15 17 10"/>
-             <line x1="12" y1="15" x2="12" y2="3"/>
-           </svg>
-           Download PDF Report
-         </button>`
-      : '';
 
     const summaryHtml = `
       <div class="results-summary" role="region" aria-label="Audit summary">
@@ -116,7 +96,6 @@
         <div class="summary-url">
           Audited: <a href="${escHtml(data.url)}" target="_blank" rel="noopener">${escHtml(data.url)}</a>
         </div>
-        ${pdfBtn}
       </div>`;
 
     const violationsHtml = vCount === 0
@@ -138,55 +117,10 @@
         ${violationsHtml}
       </section>
       ${incompleteHtml}`;
-
-    // Attach PDF download handler after the DOM is updated
-    if (PDF_FUNCTION_URL) {
-      const pdfBtnEl = document.getElementById('pdf-download-btn');
-      if (pdfBtnEl) {
-        pdfBtnEl.addEventListener('click', () => downloadPdf(data, pdfBtnEl));
-      }
-    }
-  }
-
-  async function downloadPdf(data, btn) {
-    const originalHtml = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner" aria-hidden="true"></span> Generating PDF…';
-
-    try {
-      const res = await fetch(PDF_FUNCTION_URL, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(data),
-      });
-
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-      const blob     = await res.blob();
-      const blobUrl  = URL.createObjectURL(blob);
-      const anchor   = document.createElement('a');
-      const dateSlug = new Date().toISOString().slice(0, 10);
-      anchor.href     = blobUrl;
-      anchor.download = `a11y-report-${dateSlug}.pdf`;
-      document.body.appendChild(anchor);
-      anchor.click();
-      document.body.removeChild(anchor);
-      URL.revokeObjectURL(blobUrl);
-
-      btn.innerHTML = '✓ Downloaded';
-      setTimeout(() => {
-        btn.innerHTML = originalHtml;
-        btn.disabled = false;
-      }, 2500);
-    } catch {
-      btn.innerHTML = '⚠ PDF failed — try again';
-      btn.disabled = false;
-      setTimeout(() => { btn.innerHTML = originalHtml; }, 3000);
-    }
   }
 
   function renderRule(rule, isIncomplete = false) {
-    const impact    = rule.impact || 'minor';
+    const impact = rule.impact || 'minor';
     const nodeItems = rule.nodes.map((n) => `
       <div class="node-item">
         <code class="node-html">${escHtml(n.html)}</code>
