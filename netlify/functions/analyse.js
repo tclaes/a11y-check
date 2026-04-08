@@ -15,6 +15,10 @@ const CORS_HEADERS = {
   'Content-Type': 'application/json',
 };
 
+// Seam object: allows tests to replace runAudit without needing to mock puppeteer
+const _seam = { runAudit };
+exports._seam = _seam;
+
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 204, headers: CORS_HEADERS, body: '' };
@@ -41,7 +45,7 @@ exports.handler = async (event) => {
   }
 
   const result = await Promise.race([
-    runAudit(targetUrl),
+    _seam.runAudit(targetUrl),
     new Promise((resolve) =>
       setTimeout(() => resolve({ timedOut: true }), FUNCTION_TIMEOUT_MS)
     ),
@@ -146,3 +150,7 @@ function formatError(err) {
   if (msg.includes('Navigation timeout') || msg.includes('TimeoutError')) return 'Page load timed out. The site may be too slow or blocking headless browsers.';
   return 'Could not audit the page. The site may be unreachable or blocking automated access.';
 }
+
+// Exported for unit testing only
+exports._shapeRule = shapeRule;
+exports._formatError = formatError;
