@@ -238,6 +238,136 @@
       color: var(--color-muted);
     }
 
+    /* ── Ad unit ── */
+    .ad-unit {
+      text-align: center;
+      margin: 0.5rem 0;
+    }
+
+    /* ── How it works ── */
+    .how-it-works {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+    .how-it-works h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; }
+    .step p { font-size: 0.9rem; color: var(--color-muted); }
+
+    /* ── Info sections ── */
+    .info-section {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+    .info-section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .info-section p {
+      color: var(--color-muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.7;
+    }
+    .info-section p:last-child { margin-bottom: 0; }
+    .wcag-levels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .wcag-level {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .wcag-level strong { display: block; font-size: 1rem; margin-bottom: 0.25rem; }
+    .wcag-level span { font-size: 0.85rem; color: var(--color-muted); }
+
+    /* ── Common issues ── */
+    .issues-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .issue-item {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+    .issue-item strong { display: block; margin-bottom: 0.25rem; font-size: 0.95rem; }
+    .issue-item p { font-size: 0.875rem; color: var(--color-muted); margin: 0; }
+
+    /* ── FAQ ── */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .faq-item {
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .faq-item summary {
+      padding: 0.9rem 1.25rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      list-style: none;
+      background: var(--color-bg);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      float: right;
+      font-size: 1.1rem;
+      color: var(--color-muted);
+    }
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-item .faq-body {
+      padding: 0.9rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--color-muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--color-border);
+    }
+
     /* ── Footer ── */
     footer {
       background: var(--color-surface);
@@ -459,6 +589,166 @@
         <p>No account needed. Run as many checks as you like, completely free.</p>
       </article>
     </div>
+
+    <!-- Ad unit 1 -->
+    <div class="ad-unit" aria-hidden="true">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4950654000854684"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <section class="how-it-works" aria-labelledby="how-heading">
+      <h2 id="how-heading">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number" aria-hidden="true">1</div>
+          <h3>Enter a URL</h3>
+          <p>Type or paste any public website address into the checker above. No login or browser extension needed.</p>
+        </div>
+        <div class="step">
+          <div class="step-number" aria-hidden="true">2</div>
+          <h3>We Audit the Page</h3>
+          <p>Our server loads the page in a headless browser, injects axe-core, and runs a full WCAG audit automatically.</p>
+        </div>
+        <div class="step">
+          <div class="step-number" aria-hidden="true">3</div>
+          <h3>Review Your Report</h3>
+          <p>Violations are grouped by severity — critical, serious, moderate, and minor — with code snippets and fix guidance for each.</p>
+        </div>
+        <div class="step">
+          <div class="step-number" aria-hidden="true">4</div>
+          <h3>Fix &amp; Re-check</h3>
+          <p>Apply the suggested fixes in your codebase, then re-run the checker to confirm the issues are resolved.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section" aria-labelledby="wcag-heading">
+      <h2 id="wcag-heading">What Is WCAG?</h2>
+      <p>
+        The <strong>Web Content Accessibility Guidelines (WCAG)</strong> are a set of internationally recognised standards published by the W3C that define how to make web content more accessible to people with disabilities, including those with visual, auditory, motor, and cognitive impairments.
+      </p>
+      <p>
+        WCAG is organised around four principles — content must be <strong>Perceivable</strong>, <strong>Operable</strong>, <strong>Understandable</strong>, and <strong>Robust</strong> (often called POUR). Each principle contains guidelines and testable success criteria rated at three conformance levels:
+      </p>
+      <div class="wcag-levels">
+        <div class="wcag-level">
+          <strong>Level A</strong>
+          <span>The minimum level. Covers the most basic accessibility requirements that, if not met, make it impossible for some users to access content at all.</span>
+        </div>
+        <div class="wcag-level">
+          <strong>Level AA</strong>
+          <span>The standard required by most accessibility laws and regulations worldwide, including the EU Web Accessibility Directive and the ADA in the US.</span>
+        </div>
+        <div class="wcag-level">
+          <strong>Level AAA</strong>
+          <span>The highest level of conformance. Addresses the widest possible range of users but is not always achievable for all content types.</span>
+        </div>
+      </div>
+      <p style="margin-top:1.25rem">
+        a11y-check tests against <strong>WCAG 2.1 Level AA</strong> — the level required by law in most jurisdictions — plus best-practice rules from axe-core.
+      </p>
+    </section>
+
+    <!-- Ad unit 2 -->
+    <div class="ad-unit" aria-hidden="true">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4950654000854684"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <section class="info-section" aria-labelledby="issues-heading">
+      <h2 id="issues-heading">Common Accessibility Issues</h2>
+      <p>These are the most frequently detected problems across the web. Each one affects real users and is straightforward to fix.</p>
+      <div class="issues-list">
+        <div class="issue-item">
+          <strong>Missing image alt text</strong>
+          <p>Images without an <code>alt</code> attribute are invisible to screen reader users. Every meaningful image needs a descriptive alternative text; decorative images should use <code>alt=""</code>.</p>
+        </div>
+        <div class="issue-item">
+          <strong>Insufficient colour contrast</strong>
+          <p>Text that doesn't meet a 4.5:1 contrast ratio against its background is hard to read for users with low vision or colour blindness. WCAG 2.1 AA requires a minimum ratio of 4.5:1 for normal text and 3:1 for large text.</p>
+        </div>
+        <div class="issue-item">
+          <strong>Form inputs without labels</strong>
+          <p>Input fields must have a programmatically associated <code>&lt;label&gt;</code> element. Without one, screen reader users can't tell what information a field expects.</p>
+        </div>
+        <div class="issue-item">
+          <strong>Keyboard traps and missing focus management</strong>
+          <p>All interactive elements — links, buttons, form fields, modals — must be reachable and operable via keyboard alone. Modals that trap focus or widgets that can't be closed with the Escape key lock out keyboard users.</p>
+        </div>
+        <div class="issue-item">
+          <strong>Missing or skipped heading levels</strong>
+          <p>Headings create a navigable document outline for screen reader users. Skipping levels (e.g. jumping from <code>&lt;h1&gt;</code> to <code>&lt;h4&gt;</code>) breaks that structure and makes navigation confusing.</p>
+        </div>
+        <div class="issue-item">
+          <strong>Links with non-descriptive text</strong>
+          <p>Links labelled "click here" or "read more" provide no context when read out of order by a screen reader. Each link's text should describe its destination or purpose.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section" aria-labelledby="why-heading">
+      <h2 id="why-heading">Why Accessibility Matters</h2>
+      <p>
+        Over <strong>1.3 billion people worldwide</strong> live with some form of disability. On the web, barriers like poor colour contrast, missing keyboard support, or unlabelled form fields can make it impossible for these users to access information, complete tasks, or participate in online life.
+      </p>
+      <p>
+        Beyond the ethical case, accessibility is increasingly a <strong>legal requirement</strong>. The EU Web Accessibility Directive mandates WCAG 2.1 AA compliance for public sector websites. The European Accessibility Act (EAA), which comes into force in June 2025, extends these obligations to many private-sector products and services. In the US, Section 508 and the Americans with Disabilities Act (ADA) have been used in thousands of lawsuits against inaccessible websites.
+      </p>
+      <p>
+        Accessible websites also tend to rank better in search engines, load faster on low-bandwidth connections, and provide a better experience for all users — not just those with disabilities. Good accessibility and good usability are the same thing.
+      </p>
+    </section>
+
+    <!-- Ad unit 3 -->
+    <div class="ad-unit" aria-hidden="true">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4950654000854684"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <section class="info-section" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Is a11y-check completely free?</summary>
+          <div class="faq-body">Yes. There are no accounts, no rate limits, and no paid tiers. You can run as many accessibility checks as you need, completely free.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Does automated testing catch all accessibility issues?</summary>
+          <div class="faq-body">Automated tools like axe-core can reliably detect around 30–40% of WCAG issues — the ones that are objectively testable, such as missing alt text or colour contrast failures. The remaining issues require manual testing with real assistive technologies, because they involve judgement about context, language clarity, and interaction design. Use a11y-check as your first pass, then follow up with keyboard and screen reader testing.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Which browsers and screen readers do you recommend for manual testing?</summary>
+          <div class="faq-body">For Windows, test with NVDA or JAWS alongside Chrome or Firefox. On macOS and iOS, use Safari with VoiceOver. On Android, use TalkBack with Chrome. These combinations cover the majority of assistive technology users on the web.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Why does the checker sometimes fail to load a page?</summary>
+          <div class="faq-body">Some websites block headless browsers or require authentication. Pages behind a login, on private networks, or actively blocking automated traffic can't be audited. If a site returns a timeout or connection error, check that the URL is publicly accessible and try again.</div>
+        </details>
+        <details class="faq-item">
+          <summary>What is the difference between violations and incomplete results?</summary>
+          <div class="faq-body">Violations are issues axe-core is certain about — they definitively fail a WCAG rule. Incomplete results (also called "needs review") are cases where axe-core detected something potentially problematic but couldn't automatically determine whether it's a real failure. These require a human to check manually.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Can I use a11y-check in my CI/CD pipeline?</summary>
+          <div class="faq-body">The checker is a web UI tool, but the same axe-core engine it uses is available as an npm package and integrates with Jest, Playwright, Cypress, and other test frameworks. For automated CI/CD testing, consider using <code>axe-core</code> directly or tools like <code>@axe-core/playwright</code>.</div>
+        </details>
+      </div>
+    </section>
 
   </main>
 
