@@ -304,8 +304,8 @@ function drawRule(doc, rule, ML, W, PH, isIncomplete = false) {
   doc.moveDown(0.45);
 
   // ── HTML snippets (up to 3 nodes) ─────────────────────────────────────────
-  const nodes = (rule.nodes || []).slice(0, 3);
-  for (const node of nodes) {
+  const snippetNodes = nodes.slice(0, 3);
+  for (const node of snippetNodes) {
     if (doc.y > PH - 90) {
       doc.addPage();
       doc.y = 60;
