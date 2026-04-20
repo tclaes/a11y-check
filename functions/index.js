@@ -35,7 +35,7 @@ exports.generatePdf = onRequest({ cors: true, invoker: 'public' }, async (req, r
     passCount   = 0,
   } = req.body || {};
 
-  if (!url) {
+  if (typeof url !== 'string' || !url.trim()) {
     res.status(400).json({ error: 'Missing required field: url' });
     return;
   }
@@ -352,13 +352,13 @@ function drawRule(doc, rule, ML, W, PH, isIncomplete = false) {
   }
 
   // "…and N more" tail
-  if (rule.nodes.length > 3) {
+  if (nodes.length > 3) {
     doc
       .fillColor(C.mid)
       .font('Helvetica-Oblique')
       .fontSize(8)
       .text(
-        `…and ${rule.nodes.length - 3} more element${rule.nodes.length - 3 !== 1 ? 's' : ''}`,
+        `…and ${nodes.length - 3} more element${nodes.length - 3 !== 1 ? 's' : ''}`,
         ML + 14,
       );
     doc.moveDown(0.35);

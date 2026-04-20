@@ -70,8 +70,8 @@
   }
 
   async function downloadPdf(data) {
+    const btn = document.getElementById('pdf-download-btn');
     try {
-      const btn = document.getElementById('pdf-download-btn');
       btn.disabled = true;
       btn.textContent = 'Generating PDF…';
 
@@ -94,7 +94,6 @@
     } catch {
       alert('Could not generate PDF. Please try again.');
     } finally {
-      const btn = document.getElementById('pdf-download-btn');
       if (btn) {
         btn.disabled = false;
         btn.textContent = 'Download PDF Report';
