@@ -1,0 +1,14 @@
+{
+  "name": "a11y-check-functions",
+  "version": "1.0.0",
+  "description": "Firebase Cloud Functions for a11y-check.eu",
+  "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "firebase-functions": "^6.0.0",
+    "pdfkit": "^0.15.0"
+  },
+  "private": true
+}

@@ -1,6 +1,8 @@
 (() => {
   const FUNCTION_URL = '/.netlify/functions/analyse';
 
+  const PDF_FUNCTION_URL = 'https://generatepdf-7a6kses7eq-uc.a.run.app';
+
   const form = document.getElementById('checker-form');
   const input = document.getElementById('url-input');
   const button = document.querySelector('#checker-form button');
@@ -34,7 +36,7 @@
       if (!res.ok || data.error) {
         renderError(data.error || 'Something went wrong. Please try again.');
       } else {
-        renderResults(data);
+        renderResults(data, targetUrl);
       }
     } catch {
       renderError('Could not connect to the analysis service. Please try again.');
@@ -67,7 +69,40 @@
       </div>`;
   }
 
-  function renderResults(data) {
+  async function downloadPdf(data) {
+    const btn = document.getElementById('pdf-download-btn');
+    try {
+      btn.disabled = true;
+      btn.textContent = 'Generating PDF…';
+
+      const res = await fetch(PDF_FUNCTION_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error('PDF generation failed');
+
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      const date = new Date().toISOString().slice(0, 10);
+      a.href     = url;
+      a.download = `a11y-report-${date}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert('Could not generate PDF. Please try again.');
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Download PDF Report';
+      }
+    }
+  }
+
+  function renderResults(data, auditedUrl) {
+    data = { ...data, url: data.url || auditedUrl, testedAt: new Date().toISOString() };
     const vCount = data.violations.length;
     const iCount = data.incomplete.length;
     const impactOrder = ['critical', 'serious', 'moderate', 'minor'];
@@ -94,6 +129,7 @@
         <div class="summary-url">
           Audited: <a href="${escHtml(data.url)}" target="_blank" rel="noopener">${escHtml(data.url)}</a>
         </div>
+        <button id="pdf-download-btn" class="btn-pdf">Download PDF Report</button>
       </div>`;
 
     const violationsHtml = vCount === 0
@@ -115,6 +151,8 @@
         ${violationsHtml}
       </section>
       ${incompleteHtml}`;
+
+    document.getElementById('pdf-download-btn').addEventListener('click', () => downloadPdf(data));
   }
 
   function renderRule(rule, isIncomplete = false) {

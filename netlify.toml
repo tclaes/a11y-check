@@ -9,3 +9,15 @@
   node_bundler = "esbuild"
   external_node_modules = ["@sparticuz/chromium", "axe-core"]
   timeout = 26
+
+# Production branch
+[context.main]
+  publish = "."
+
+# Develop branch — persistent preview at develop--a11y-check.netlify.app
+[context.develop]
+  publish = "."
+
+# Deploy previews — created automatically for every PR
+[context.deploy-preview]
+  publish = "."
