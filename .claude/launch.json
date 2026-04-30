@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Netlify Dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["netlify", "dev"],
+      "port": 8888
+    }
+  ]
+}
