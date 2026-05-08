@@ -25,9 +25,28 @@
     });
   }
 
-  /* ── 2. Check saved preference ──────────────────────────────────── */
+  /* ── 2. Safe localStorage helpers ──────────────────────────────── */
+  // localStorage throws in private-browsing modes and when storage is full.
 
-  const saved = localStorage.getItem(STORAGE_KEY);
+  function storageGet(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function storageSet(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch (_) {
+      // Storage unavailable — consent won't persist, but the UI still works.
+    }
+  }
+
+  /* ── 3. Check saved preference ──────────────────────────────────── */
+
+  const saved = storageGet(STORAGE_KEY);
 
   if (saved === 'accepted') {
     // User already accepted — update consent and bail out.
@@ -40,7 +59,7 @@
     return;
   }
 
-  /* ── 3. Build & show the banner ─────────────────────────────────── */
+  /* ── 4. Build & show the banner ─────────────────────────────────── */
 
   function buildBanner() {
     const banner = document.createElement('div');
@@ -62,13 +81,13 @@
     document.body.appendChild(banner);
 
     document.getElementById('cookie-accept').addEventListener('click', function () {
-      localStorage.setItem(STORAGE_KEY, 'accepted');
+      storageSet(STORAGE_KEY, 'accepted');
       applyConsent(true);
       banner.remove();
     });
 
     document.getElementById('cookie-decline').addEventListener('click', function () {
-      localStorage.setItem(STORAGE_KEY, 'declined');
+      storageSet(STORAGE_KEY, 'declined');
       // consent remains denied — no update call needed
       banner.remove();
     });
