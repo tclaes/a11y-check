@@ -6,11 +6,24 @@
   <meta name="description" content="Privacy Policy for a11y-check.eu — how we handle your data, cookies, and advertising." />
   <title>Privacy Policy — a11y-check</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGYEEPC5BE"></script>
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- Google Consent Mode v2: deny-all defaults before any tracking scripts -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage:              'denied',
+      ad_user_data:            'denied',
+      ad_personalization:      'denied',
+      analytics_storage:       'denied',
+      wait_for_update:         500,
+    });
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGYEEPC5BE"></script>
+  <script>
     gtag('js', new Date());
     gtag('config', 'G-FGYEEPC5BE');
   </script>
@@ -19,111 +32,24 @@
   <meta name="google-adsense-account" content="ca-pub-4950654000854684">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4950654000854684"
        crossorigin="anonymous"></script>
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --color-bg:        #f8fafc;
-      --color-surface:   #ffffff;
-      --color-border:    #e2e8f0;
-      --color-text:      #1e293b;
-      --color-muted:     #64748b;
-      --color-primary:   #2563eb;
-      --space-1: 0.5rem; --space-2: 1rem; --space-3: 1.5rem;
-      --space-4: 2rem;   --space-6: 3rem; --space-8: 4rem;
-      --text-sm: 0.875rem; --text-base: 1rem;
-      --text-xl: 1.25rem;  --text-3xl: 1.875rem;
-      --radius-lg: 12px;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: var(--color-bg);
-      color: var(--color-text);
-      line-height: 1.7;
-    }
-
-    header {
-      background: var(--color-surface);
-      border-bottom: 1px solid var(--color-border);
-      padding: var(--space-3) var(--space-4);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: var(--text-xl);
-      font-weight: 800;
-      color: var(--color-primary);
-      text-decoration: none;
-    }
-
-    .logo span { color: var(--color-text); }
-
-    nav a {
-      color: var(--color-primary);
-      text-decoration: none;
-      font-size: var(--text-sm);
-      font-weight: 500;
-    }
-
-    nav a:hover { text-decoration: underline; }
-
-    main {
-      max-width: 760px;
-      margin: var(--space-8) auto;
-      padding: 0 var(--space-4);
-    }
-
-    h1 {
-      font-size: var(--text-3xl);
-      font-weight: 800;
-      margin-bottom: var(--space-1);
-    }
-
-    .meta {
-      color: var(--color-muted);
-      font-size: var(--text-sm);
-      margin-bottom: var(--space-6);
-    }
-
-    h2 {
-      font-size: var(--text-xl);
-      font-weight: 700;
-      margin: var(--space-6) 0 var(--space-2);
-    }
-
-    p  { margin-bottom: var(--space-2); font-size: var(--text-base); }
-    ul { margin: var(--space-1) 0 var(--space-2) var(--space-4); }
-    li { margin-bottom: var(--space-1); }
-    a  { color: var(--color-primary); }
-
-    footer {
-      background: var(--color-surface);
-      border-top: 1px solid var(--color-border);
-      padding: var(--space-3) var(--space-4);
-      text-align: center;
-      color: var(--color-muted);
-      font-size: var(--text-sm);
-      margin-top: var(--space-8);
-    }
-
-    footer a { color: var(--color-primary); text-decoration: underline; }
-    footer a:hover { text-decoration: none; }
-  </style>
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
   <header>
-    <a href="/" class="logo">a11y<span>-check</span></a>
-    <nav>
-      <a href="/">← Back to checker</a>
-    </nav>
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="a11y-check home">
+        <span class="logo-badge">a11y</span>
+        check.eu
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="/">← Back to checker</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <main id="main-content" class="content-page">
     <h1>Privacy Policy</h1>
     <p class="meta">Last updated: May 2026</p>
 
@@ -240,5 +166,6 @@
     </p>
   </footer>
 
+  <script src="cookie-consent.js" defer></script>
 </body>
 </html>

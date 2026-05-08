@@ -1,60 +1,304 @@
+/* ============================================================
+   style.css — shared across all pages
+   ============================================================ */
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Design tokens ── */
+:root {
+  /* Spacing (8px base) */
+  --space-half: 0.25rem;
+  --space-1:    0.5rem;
+  --space-2:    1rem;
+  --space-3:    1.5rem;
+  --space-4:    2rem;
+  --space-5:    2.5rem;
+  --space-6:    3rem;
+  --space-8:    4rem;
+  --space-10:   5rem;
+
+  /* Typography */
+  --text-xs:    0.75rem;
+  --text-sm:    0.875rem;
+  --text-base:  1rem;
+  --text-lg:    1.125rem;
+  --text-xl:    1.25rem;
+  --text-2xl:   1.5rem;
+  --text-3xl:   1.875rem;
+  --text-hero:  clamp(2rem, 5vw, 3.25rem);
+
+  --font-semibold:  600;
+  --font-bold:      700;
+  --font-extrabold: 800;
+
+  --leading-tight:   1.15;
+  --leading-normal:  1.6;
+  --leading-relaxed: 1.7;
+
+  /* Colours: Brand */
+  --color-primary:      #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-bg:   #eff6ff;
+  --color-accent:       #0ea5e9;
+
+  /* Colours: Neutrals */
+  --color-bg:      #f8fafc;
+  --color-surface: #ffffff;
+  --color-text:    #1e293b;
+  --color-muted:   #64748b;
+  --color-border:  #e2e8f0;
+
+  /* Colours: Feedback */
+  --color-success:        #16a34a;
+  --color-success-bg:     #f0fdf4;
+  --color-success-border: #bbf7d0;
+
+  --color-warning:        #92400e;
+  --color-warning-bg:     #fef3c7;
+  --color-warning-border: #fde68a;
+
+  --color-danger:         #991b1b;
+  --color-danger-bg:      #fef2f2;
+  --color-danger-border:  #fca5a5;
+
+  --color-info:           #1e40af;
+  --color-info-bg:        #eff6ff;
+  --color-info-border:    #bfdbfe;
+
+  /* Colours: Severity text */
+  --color-critical: #dc2626;
+  --color-serious:  #ea580c;
+  --color-moderate: #d97706;
+  --color-minor:    #2563eb;
+
+  /* Shape */
+  --radius-sm:   6px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-full: 9999px;
+  --shadow:      0 4px 24px rgba(0,0,0,0.07);
+}
+
+/* ── Base ── */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* ── Skip link ── */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-1) var(--space-2);
+  border-radius: 0 0 var(--radius-md) 0;
+  text-decoration: none;
+  font-weight: var(--font-semibold);
+  z-index: 100;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+/* ── Header ── */
 header {
-    text-align: center;
-    margin-bottom: 3rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 var(--space-4);
+}
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: var(--font-bold);
+  font-size: var(--text-xl);
+}
+.logo-badge {
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-half) var(--space-1);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-extrabold);
+  letter-spacing: 0.5px;
+}
+nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: var(--text-base);
+  padding: var(--space-half) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+nav a:hover,
+nav a:focus {
+  color: var(--color-primary);
+  background: var(--color-primary-bg);
+  outline: none;
 }
 
-h1 {
-    margin-bottom: 0.5rem;
-}
-
-#hero {
-    background: #f4f4f4;
-    padding: 2rem;
-    border-radius: 8px;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-#check-form {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    margin-top: 1.5rem;
-}
-
-input[type="url"] {
-    padding: 0.5rem;
-    width: 60%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    padding: 0.5rem 1rem;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-}
-
+/* ── Footer ── */
 footer {
-    margin-top: 4rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #666;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  margin-top: auto;
+}
+footer a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+footer a:hover { text-decoration: none; }
+
+/* ── Screen-reader only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Content pages (About, Privacy) ── */
+.content-page {
+  max-width: 760px;
+  margin: var(--space-8) auto;
+  padding: 0 var(--space-4);
+  flex: 1;
+}
+.content-page h1 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-extrabold);
+  margin-bottom: var(--space-1);
+  color: var(--color-text);
+}
+.content-page h2 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  margin: var(--space-6) 0 var(--space-2);
+  color: var(--color-text);
+}
+.content-page p {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+.content-page ul {
+  margin: var(--space-1) 0 var(--space-2) var(--space-4);
+}
+.content-page li {
+  margin-bottom: var(--space-1);
+  font-size: var(--text-base);
+}
+.content-page a { color: var(--color-primary); }
+.content-page code {
+  font-family: monospace;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+}
+
+/* Meta line e.g. "Last updated: …" */
+.meta {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-6);
+}
+
+/* Card block used on About page */
+.prose-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  box-shadow: var(--shadow);
+}
+.prose-card h2 { margin-top: 0; }
+
+/* ── Cookie consent banner ── */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  z-index: 9999;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+}
+.cookie-banner p {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  flex: 1;
+  min-width: 200px;
+}
+.cookie-banner a { color: var(--color-primary); }
+.cookie-banner-actions {
+  display: flex;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+.cookie-btn {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, transform 0.1s;
+}
+.cookie-btn:hover { transform: translateY(-1px); }
+.cookie-btn-accept {
+  background: var(--color-primary);
+  color: #fff;
+}
+.cookie-btn-accept:hover { background: var(--color-primary-dark); }
+.cookie-btn-decline {
+  background: var(--color-bg);
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+}
+.cookie-btn-decline:hover { background: var(--color-border); color: var(--color-text); }
+
+@media (max-width: 600px) {
+  .cookie-banner { flex-direction: column; align-items: flex-start; }
+  .cookie-banner-actions { width: 100%; }
+  .cookie-btn { flex: 1; text-align: center; }
 }
