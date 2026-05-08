@@ -159,10 +159,14 @@ nav a {
 }
 
 nav a:hover,
-nav a:focus {
+nav a:focus-visible {
   color: var(--color-primary);
   background: var(--color-primary-bg);
-  outline: none;
+}
+
+nav a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* ── Footer ── */
@@ -302,6 +306,11 @@ footer a:hover { text-decoration: none; }
   transition: background 0.15s, transform 0.1s;
 }
 .cookie-btn:hover { transform: translateY(-1px); }
+
+.cookie-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
 
 .cookie-btn-accept {
   background: var(--color-primary);

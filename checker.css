@@ -46,9 +46,13 @@
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgb(0 0 0 / 15%); }
+
 .btn-primary { background: var(--color-white); color: var(--color-primary); }
+.btn-primary:focus-visible { outline: 2px solid var(--color-white); outline-offset: 3px; }
+
 .btn-outline { background: transparent; color: var(--color-white); border: 2px solid var(--color-overlay-border); }
 .btn-outline:hover { background: var(--color-overlay-hover); }
+.btn-outline:focus-visible { outline: 2px solid var(--color-white); outline-offset: 3px; }
 
 /* ── Main content layout ── */
 main {
@@ -87,10 +91,14 @@ main {
   font-size: var(--text-base);
   color: var(--color-text);
   background: var(--color-bg);
-  outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.input-group input:focus { border-color: var(--color-primary); }
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-bg);
+}
 
 .input-group button {
   padding: var(--space-1) var(--space-2);
@@ -99,9 +107,21 @@ main {
   border: none;
   border-radius: var(--radius-md);
   font-weight: var(--font-semibold);
-  cursor: not-allowed;
-  opacity: 0.7;
+  cursor: pointer;
   font-size: var(--text-base);
+  transition: background 0.15s;
+}
+
+.input-group button:hover { background: var(--color-primary-dark); }
+
+.input-group button:focus-visible {
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
+.input-group button:disabled {
+  opacity: 0.7;
+  cursor: wait;
 }
 
 .coming-soon-badge {
@@ -347,10 +367,10 @@ main {
   transition: background 0.15s;
 }
 .btn-pdf:hover    { background: var(--color-primary-dark); }
+.btn-pdf:focus-visible { outline: 2px solid var(--color-primary-dark); outline-offset: 2px; }
 .btn-pdf:disabled { opacity: 0.6; cursor: wait; }
 
 /* ── Loading state ── */
-.is-loading button { cursor: wait; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
