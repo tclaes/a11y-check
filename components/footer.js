@@ -11,8 +11,15 @@ class A11yFooter extends LitElement {
       color: var(--color-muted);
       font-size: var(--text-sm);
     }
-    a { color: var(--color-primary); text-decoration: underline; }
-    a:hover { text-decoration: none; }
+  
+    a {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
   `;
 
   render() {

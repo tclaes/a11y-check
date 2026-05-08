@@ -8,6 +8,7 @@ class A11yHeader extends LitElement {
       border-bottom: 1px solid var(--color-border);
       padding: 0 var(--space-4);
     }
+  
     .header-inner {
       max-width: 1100px;
       margin: 0 auto;
@@ -16,6 +17,7 @@ class A11yHeader extends LitElement {
       justify-content: space-between;
       height: 64px;
     }
+  
     .logo {
       display: flex;
       align-items: center;
@@ -25,6 +27,7 @@ class A11yHeader extends LitElement {
       font-weight: var(--font-bold);
       font-size: var(--text-xl);
     }
+  
     .logo-badge {
       background: var(--color-primary);
       color: #fff;
@@ -34,6 +37,7 @@ class A11yHeader extends LitElement {
       font-weight: var(--font-extrabold);
       letter-spacing: 0.5px;
     }
+  
     nav a {
       color: var(--color-muted);
       text-decoration: none;
@@ -42,6 +46,7 @@ class A11yHeader extends LitElement {
       border-radius: var(--radius-sm);
       transition: color 0.15s, background 0.15s;
     }
+  
     nav a:hover, nav a:focus {
       color: var(--color-primary);
       background: var(--color-primary-bg);
