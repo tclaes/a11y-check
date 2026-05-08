@@ -423,17 +423,6 @@
       border-top: 1px solid var(--color-border);
     }
 
-    /* ── Footer ── */
-    footer {
-      background: var(--color-surface);
-      border-top: 1px solid var(--color-border);
-      padding: var(--space-3) var(--space-4);
-      text-align: center;
-      color: var(--color-muted);
-      font-size: var(--text-sm);
-    }
-    footer a { color: var(--color-primary); text-decoration: underline; }
-    footer a:hover { text-decoration: none; }
 
     /* ── Results panel ── */
     #results { margin-top: var(--space-3); }
@@ -786,15 +775,9 @@
 
   </main>
 
-  <footer>
-    <p>
-      &copy; 2026 <strong>a11y-check.eu</strong> &mdash;
-      Built with ♥ for a more accessible web &mdash;
-      <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener">WCAG Guidelines</a> &middot;
-      <a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener">axe-core</a>
-    </p>
-  </footer>
+  <a11y-footer></a11y-footer>
 
   <script src="checker.js" defer></script>
+  <script type="module" src="components/footer.js"></script>
 </body>
 </html>
