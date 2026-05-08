@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About a11y-check.eu — a free, open-source web accessibility checker built on axe-core." />
+  <title>About — a11y-check</title>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGYEEPC5BE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FGYEEPC5BE');
+  </script>
+
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-4950654000854684">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4950654000854684"
+       crossorigin="anonymous"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg:        #f8fafc;
+      --color-surface:   #ffffff;
+      --color-border:    #e2e8f0;
+      --color-text:      #1e293b;
+      --color-muted:     #64748b;
+      --color-primary:   #2563eb;
+      --color-primary-dark: #1d4ed8;
+      --space-1: 0.5rem; --space-2: 1rem; --space-3: 1.5rem;
+      --space-4: 2rem;   --space-6: 3rem; --space-8: 4rem;
+      --text-sm: 0.875rem; --text-base: 1rem; --text-lg: 1.125rem;
+      --text-xl: 1.25rem;  --text-2xl: 1.5rem; --text-3xl: 1.875rem;
+      --radius-md: 8px; --radius-lg: 12px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-3) var(--space-4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: var(--text-xl);
+      font-weight: 800;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--color-text); }
+
+    nav a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-size: var(--text-sm);
+      font-weight: 500;
+    }
+
+    nav a:hover { text-decoration: underline; }
+
+    main {
+      max-width: 760px;
+      margin: var(--space-8) auto;
+      padding: 0 var(--space-4);
+    }
+
+    h1 {
+      font-size: var(--text-3xl);
+      font-weight: 800;
+      margin-bottom: var(--space-3);
+      color: var(--color-text);
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      margin: var(--space-6) 0 var(--space-2);
+      color: var(--color-text);
+    }
+
+    p { margin-bottom: var(--space-2); color: var(--color-text); font-size: var(--text-base); }
+
+    ul { margin: var(--space-2) 0 var(--space-2) var(--space-4); }
+    li { margin-bottom: var(--space-1); font-size: var(--text-base); }
+
+    a { color: var(--color-primary); }
+    a:hover { text-decoration: none; }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      margin-bottom: var(--space-3);
+    }
+
+    footer {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-3) var(--space-4);
+      text-align: center;
+      color: var(--color-muted);
+      font-size: var(--text-sm);
+      margin-top: var(--space-8);
+    }
+
+    footer a { color: var(--color-primary); text-decoration: underline; }
+    footer a:hover { text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">a11y<span>-check</span></a>
+    <nav>
+      <a href="/">← Back to checker</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>About a11y-check</h1>
+
+    <p>
+      <strong>a11y-check.eu</strong> is a free, open-source web accessibility checker that
+      helps developers, designers, and content creators identify WCAG 2.1 AA compliance issues
+      on any publicly accessible website — no sign-up, no extensions, no cost.
+    </p>
+
+    <p>
+      The tool is built as a side project to make web accessibility testing more approachable.
+      Too many teams skip accessibility audits because the tools are complex, expensive, or
+      locked behind enterprise plans. a11y-check removes that barrier entirely.
+    </p>
+
+    <div class="card">
+      <h2 style="margin-top:0">How it works</h2>
+      <p>
+        When you submit a URL, our server spins up a headless Chromium browser (via Puppeteer),
+        loads the target page, injects <a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener">axe-core</a>
+        — Deque Systems' industry-standard accessibility engine — and runs a full automated audit.
+        Results are returned within seconds, grouped by severity (critical, serious, moderate, minor),
+        with HTML snippets and direct links to remediation guidance.
+      </p>
+    </div>
+
+    <h2>What is axe-core?</h2>
+    <p>
+      <a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener">axe-core</a>
+      is an open-source accessibility testing engine developed by
+      <a href="https://www.deque.com" target="_blank" rel="noopener">Deque Systems</a>.
+      It is trusted by Microsoft, Google, and thousands of development teams worldwide, and
+      powers the accessibility tooling built into Chrome DevTools, the axe browser extension,
+      and many CI/CD pipelines.
+    </p>
+    <p>
+      axe-core reliably detects approximately 30–40% of WCAG issues automatically — the ones
+      that have deterministic, rule-based definitions. The remaining issues require human
+      judgement and manual testing, which is why a11y-check also flags "needs review" items
+      alongside confirmed violations.
+    </p>
+
+    <h2>What we check</h2>
+    <ul>
+      <li>WCAG 2.1 Level A and Level AA rules</li>
+      <li>Best-practice rules (colour contrast, landmark regions, skip links)</li>
+      <li>ARIA correctness and misuse</li>
+      <li>Form labelling and input identification</li>
+      <li>Image alternative text</li>
+      <li>Keyboard focus and interactive element accessibility</li>
+      <li>Document structure and heading hierarchy</li>
+    </ul>
+
+    <h2>Who built this</h2>
+    <p>
+      a11y-check is an independent open-source project. The source code is publicly available
+      on <a href="https://github.com/tclaes/a11y-check" target="_blank" rel="noopener">GitHub</a>.
+      Contributions, bug reports, and feature suggestions are welcome via GitHub Issues.
+    </p>
+
+    <h2>Privacy &amp; data</h2>
+    <p>
+      We do not store the URLs you submit, the audit results, or any personally identifiable
+      information. See our <a href="/privacy.html">Privacy Policy</a> for full details on how
+      the site uses cookies and analytics.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Found a bug or have a suggestion? Open an issue on
+      <a href="https://github.com/tclaes/a11y-check/issues" target="_blank" rel="noopener">GitHub</a>.
+    </p>
+  </main>
+
+  <footer>
+    <p>
+      &copy; 2026 <strong>a11y-check.eu</strong> &mdash;
+      <a href="/">Home</a> &middot;
+      <a href="/about.html">About</a> &middot;
+      <a href="/privacy.html">Privacy Policy</a> &middot;
+      <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener">WCAG Guidelines</a> &middot;
+      <a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener">axe-core</a>
+    </p>
+  </footer>
+
+</body>
+</html>
