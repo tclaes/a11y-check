@@ -6,7 +6,21 @@
   const form = document.getElementById('checker-form');
   const input = document.getElementById('url-input');
   const button = document.querySelector('#checker-form button');
-  const results = document.getElementById('results');
+
+  // Create the results container only when first needed so the page
+  // doesn't have an empty placeholder visible to crawlers before any
+  // audit has been run.
+  let results = null;
+  function getResults() {
+    if (!results) {
+      results = document.createElement('div');
+      results.id = 'results';
+      results.setAttribute('aria-live', 'polite');
+      results.setAttribute('aria-atomic', 'false');
+      form.insertAdjacentElement('afterend', results);
+    }
+    return results;
+  }
 
   // Enable the form
   input.disabled = false;
@@ -56,13 +70,15 @@
   }
 
   function clearResults() {
-    results.innerHTML = '';
-    results.className = '';
+    const r = getResults();
+    r.innerHTML = '';
+    r.className = '';
   }
 
   function renderError(message) {
-    results.className = 'results-error';
-    results.innerHTML = `
+    const r = getResults();
+    r.className = 'results-error';
+    r.innerHTML = `
       <div class="result-card error-card" role="alert">
         <div class="error-icon" aria-hidden="true">⚠️</div>
         <p>${escHtml(message)}</p>
@@ -143,8 +159,9 @@
         ${data.incomplete.map((r) => renderRule(r, true)).join('')}
       </section>`;
 
-    results.className = 'results-panel';
-    results.innerHTML = `
+    const r = getResults();
+    r.className = 'results-panel';
+    r.innerHTML = `
       ${summaryHtml}
       <section class="results-section" aria-labelledby="violations-heading">
         <h3 id="violations-heading" class="section-heading">Violations (${vCount})</h3>

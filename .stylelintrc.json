@@ -1,0 +1,16 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "declaration-property-value-disallowed-list": {
+      "color":            ["/^#[0-9a-fA-F]+$/", "/^rgb/", "/^hsl/"],
+      "background-color": ["/^#[0-9a-fA-F]+$/", "/^rgb/", "/^hsl/"],
+      "border-color":     ["/^#[0-9a-fA-F]+$/", "/^rgb/", "/^hsl/"],
+      "outline-color":    ["/^#[0-9a-fA-F]+$/", "/^rgb/", "/^hsl/"]
+    },
+    "declaration-block-single-line-max-declarations": null,
+    "no-descending-specificity": null,
+    "custom-property-empty-line-before": null,
+    "rule-empty-line-before": null,
+    "comment-empty-line-before": null
+  }
+}
