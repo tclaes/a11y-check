@@ -31,7 +31,7 @@ const makeData = (overrides = {}) => ({
 function boot() {
   document.body.innerHTML = `
     <form id="checker-form">
-      <input id="url-input" type="url" disabled value="" />
+      <input id="url-input" type="text" inputmode="url" disabled value="" />
       <button type="submit" disabled aria-disabled="true">Analyse</button>
     </form>
     <div id="results"></div>
@@ -120,6 +120,34 @@ describe('URL normalisation', () => {
   it('does not fetch when input is empty', async () => {
     await submitForm('');
     expect(globalThis.fetch).not.toHaveBeenCalled();
+  });
+
+  it('prepends https:// for a bare domain with a path', async () => {
+    mockFetchOk(makeData());
+    await submitForm('example.com/about');
+    const body = JSON.parse(globalThis.fetch.mock.calls[0][1].body);
+    expect(body.url).toBe('https://example.com/about');
+  });
+
+  it('prepends https:// for a subdomain without protocol', async () => {
+    mockFetchOk(makeData());
+    await submitForm('blog.example.com');
+    const body = JSON.parse(globalThis.fetch.mock.calls[0][1].body);
+    expect(body.url).toBe('https://blog.example.com');
+  });
+
+  it('does not double-prepend when https:// is already present', async () => {
+    mockFetchOk(makeData());
+    await submitForm('https://example.com');
+    const body = JSON.parse(globalThis.fetch.mock.calls[0][1].body);
+    expect(body.url).not.toMatch(/^https:\/\/https:\/\//);
+  });
+
+  it('does not prepend https:// when http:// is present', async () => {
+    mockFetchOk(makeData());
+    await submitForm('http://example.com');
+    const body = JSON.parse(globalThis.fetch.mock.calls[0][1].body);
+    expect(body.url).toBe('http://example.com');
   });
 });
 
