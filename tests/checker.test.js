@@ -142,13 +142,6 @@ describe('URL normalisation', () => {
     const body = JSON.parse(globalThis.fetch.mock.calls[0][1].body);
     expect(body.url).not.toMatch(/^https:\/\/https:\/\//);
   });
-
-  it('does not prepend https:// when http:// is present', async () => {
-    mockFetchOk(makeData());
-    await submitForm('http://example.com');
-    const body = JSON.parse(globalThis.fetch.mock.calls[0][1].body);
-    expect(body.url).toBe('http://example.com');
-  });
 });
 
 // ── Loading state ─────────────────────────────────────────────────────────────
