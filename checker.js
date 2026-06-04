@@ -49,6 +49,7 @@
 
       if (!res.ok || data.error) {
         renderError(data.error || 'Something went wrong. Please try again.');
+        fireEvent('generate_report_error', { error_message: data.error || 'unknown' });
       } else {
         renderResults(data, targetUrl);
       }
@@ -169,7 +170,16 @@
       </section>
       ${incompleteHtml}`;
 
-    document.getElementById('pdf-download-btn').addEventListener('click', () => downloadPdf(data));
+    fireEvent('generate_report', {
+      violations: vCount,
+      incomplete: iCount,
+      passes: data.passCount,
+    });
+
+    document.getElementById('pdf-download-btn').addEventListener('click', () => {
+      fireEvent('download_pdf_report', { violations: vCount, incomplete: iCount, passes: data.passCount });
+      downloadPdf(data);
+    });
   }
 
   function renderRule(rule, isIncomplete = false) {
@@ -194,6 +204,12 @@
           </a>
         </div>
       </details>`;
+  }
+
+  function fireEvent(name, params) {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', name, params);
+    }
   }
 
   function escHtml(str) {
