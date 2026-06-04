@@ -1,0 +1,78 @@
+name: Address PR review comments
+
+on:
+  pull_request_review_comment:
+    types: [created]
+
+jobs:
+  address-comment:
+    runs-on: ubuntu-latest
+    # Skip our own bot commits (prevents infinite loops) and non-review bots
+    if: |
+      github.actor != 'github-actions[bot]' &&
+      github.event.comment.user.login != 'netlify[bot]'
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Build prompt
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_PATH: ${{ github.event.comment.path }}
+          COMMENT_LINE: ${{ github.event.comment.line }}
+          COMMENT_USER: ${{ github.event.comment.user.login }}
+        run: |
+          {
+            echo "Address this PR review comment if it identifies a valid code issue."
+            echo ""
+            echo "Reviewer: $COMMENT_USER"
+            echo "File: $COMMENT_PATH"
+            echo "Line: $COMMENT_LINE"
+            echo ""
+            echo "Comment:"
+            echo "$COMMENT_BODY"
+            echo ""
+            echo "Instructions:"
+            echo "1. Read the file at the path above and understand the issue."
+            echo "2. If the comment identifies a valid issue, fix it."
+            echo "3. Run 'npm test' to confirm tests still pass."
+            echo "4. If you made changes, stage and commit them:"
+            echo "   git add <changed files> && git commit -m 'fix: address review comment from $COMMENT_USER'"
+            echo "5. If no code change is needed, do nothing."
+          } > /tmp/prompt.txt
+
+      - name: Address comment with Claude Code
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          PROMPT=$(cat /tmp/prompt.txt)
+          claude -p "$PROMPT" --allowedTools "Bash,Read,Edit,Write,Glob,Grep"
+
+      - name: Push any new commits
+        run: |
+          if [ -n "$(git log origin/${{ github.event.pull_request.head.ref }}..HEAD)" ]; then
+            git push origin HEAD
+          fi
