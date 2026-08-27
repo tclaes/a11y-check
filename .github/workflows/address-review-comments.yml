@@ -72,7 +72,9 @@ jobs:
           claude -p "$PROMPT" --allowedTools "Bash,Read,Edit,Write,Glob,Grep"
 
       - name: Push any new commits
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          if [ -n "$(git log origin/${{ github.event.pull_request.head.ref }}..HEAD)" ]; then
+          if [ -n "$(git log origin/$HEAD_REF..HEAD)" ]; then
             git push origin HEAD
           fi
